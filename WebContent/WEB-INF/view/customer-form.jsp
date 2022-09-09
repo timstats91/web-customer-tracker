@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!doctype html>
 
 <html>
@@ -6,6 +6,7 @@
 	<head>
 		<title>Add A New Customer</title>
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/add-customer-style.css" />
 	</head>
 	
 	<body>
@@ -16,29 +17,31 @@
 			</div>
 		</div>
 		
-		<!-- Button for Adding a Customer -->
-		<input type="button" value="Add Customer" class="add-button" 
-			   onclick="window.location.href='showFormForAdd'; return false;"
-		/>
-		
 		<!-- Table of Customer Information -->
-		<div id="content">
-			<table>
-				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-				</tr>
-				
-				<!-- Loop over and print all customers -->
-				<c:forEach var="tempCustomer" items="${ customers }">
-					<tr>
-						<td>${ tempCustomer.firstName }</td>
-						<td>${ tempCustomer.lastName }</td>
-						<td>${ tempCustomer.email }</td>
-					</tr>
-				</c:forEach>
-			</table>
+		<div id="container">
+			<form:form action="saveCustomer" modelAttribute="customer" method="POST">
+				<table>
+					<tbody>
+						<tr>
+							<td><label>First name: </label></td>
+							<td><form:input path="firstName" /></td>
+						</tr>
+						<tr>
+							<td><label>Last name: </label></td>
+							<td><form:input path="lastName" /></td>
+						</tr>
+						<tr>
+							<td><label>Email: </label></td>
+							<td><form:input path="email" /></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="submit" value="Save" class="save" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</form:form>
+			<p><a href="${ pageContext.request.contextPath }/customer/list">Back to List</a></p>
 		</div>
 	</body>
 
