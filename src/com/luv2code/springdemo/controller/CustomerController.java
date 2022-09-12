@@ -37,7 +37,7 @@ public class CustomerController {
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		
-		// crete model attribute to bind the form data
+		// create model attribute to bind the form data
 		Customer theCustomer = new Customer();
 		theModel.addAttribute("customer", theCustomer);
 		
@@ -64,5 +64,14 @@ public class CustomerController {
 		
 		// send over to our form
 		return "customer-form";
+	}
+	
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		
+		// delete the customer
+		customerService.deleteCustomer(theId);
+		
+		return "redirect:/customer/list";
 	}
 }
